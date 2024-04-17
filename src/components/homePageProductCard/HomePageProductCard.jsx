@@ -46,7 +46,7 @@ const HomePageProductCard = () => {
             {/* main 1 */}
             <section className="text-gray-600 body-font">
                 {/* main 2 */}
-                <div className="container px-5 py-5 mx-auto">
+                <div className="container px-3 py-5 mx-auto">
 
                     <div className="flex justify-center">
                         {loading && <Loader />}
@@ -60,13 +60,13 @@ const HomePageProductCard = () => {
                                     <div className="h-full border border-gray-300 rounded-xl overflow-hidden shadow-md cursor-pointer">
                                         <img
                                             onClick={() => navigate(`/productinfo/${id}`)}
-                                            className="lg:h-80  h-96 w-full"
+                                            className="lg:h-80  h-80 w-full"
                                             src={productImageUrl}
                                             alt="img"
                                         />
                                         <div className="p-6">
                                             <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
-                                                E-bharat
+                                                NonStopShop
                                             </h2>
                                             <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
                                                 {title.substring(0, 25)}

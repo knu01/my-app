@@ -5,6 +5,7 @@ import OrderDetail from '../../components/admin/OrderDetail';
 import UserDetail from '../../components/admin/UserDetail';
 import { useContext } from 'react';
 import myContext from '../../context/myContext';
+import { Link } from "react-router-dom";
 
 const AdminDashboard = () => {
     const user = JSON.parse(localStorage.getItem('users'));
@@ -15,6 +16,9 @@ const AdminDashboard = () => {
             {/* Top */}
             <div className="top mb-5 px-5 mt-5">
                 <div className=" bg-pink-50 py-5 border border-pink-100 rounded-lg">
+                    <Link to="/" >
+                    <h2 className='pl-3 text-lg' >NonStopShop</h2>
+                    </Link>
                     <h1 className=" text-center text-2xl font-bold text-pink-500">Admin Dashboard</h1>
                 </div>
             </div>
