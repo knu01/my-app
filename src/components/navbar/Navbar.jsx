@@ -2,90 +2,73 @@ import { Link, useNavigate } from "react-router-dom";
 import SearchBar from "../searchBar/SearchBar";
 import { useSelector } from "react-redux";
 
+const linkClass = "text-stone hover:text-champagne transition-colors";
 
 const Navbar = () => {
-    // get user from localStorage 
+    // get user from localStorage
     const user = JSON.parse(localStorage.getItem('users'));
 
-    // navigate 
     const navigate = useNavigate();
 
-    // logout function 
+    // logout: only remove the signed-in user, keep the cart
     const logout = () => {
-        localStorage.clear('users');
-        navigate("/login")
-    }
+        localStorage.removeItem('users');
+        navigate("/login");
+    };
 
-    // CartItems
     const cartItems = useSelector((state) => state.cart);
 
-    // navList Data
     const navList = (
-        <ul className="flex space-x-3 text-white font-medium text-md px-5 ">
-            {/* Home */}
+        <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 px-5 text-sm font-medium">
+            <li><Link className={linkClass} to={'/'}>Home</Link></li>
+            <li><Link className={linkClass} to={'/allproduct'}>All products</Link></li>
+
+            {!user && <li><Link className={linkClass} to={'/signup'}>Sign up</Link></li>}
+            {!user && <li><Link className={linkClass} to={'/login'}>Log in</Link></li>}
+
+            {user?.role === "user" && <li><Link className={linkClass} to={'/user-dashboard'}>Account</Link></li>}
+            {user?.role === "admin" && <li><Link className={linkClass} to={'/admin-dashboard'}>Admin</Link></li>}
+
+            {user && (
+                <li>
+                    <button className={linkClass} onClick={logout}>Log out</button>
+                </li>
+            )}
+
             <li>
-                <Link to={'/'}>Home</Link>
-            </li>
-
-            {/* All Product */}
-            <li>
-                <Link to={'/allproduct'}>All Product</Link>
-            </li>
-
-            {/* Signup */}
-            {!user ? <li>
-                <Link to={'/signup'}>Signup</Link>
-            </li> : ""}
-
-            {/* Signup */}
-            {!user ? <li>
-                <Link to={'/login'}>Login</Link>
-            </li> : ""}
-
-            {/* User */}
-            {user?.role === "user" && <li>
-                <Link to={'/user-dashboard'}>User</Link>
-            </li>}
-
-            {/* Admin */}
-            {user?.role === "admin" && <li>
-                <Link to={'/admin-dashboard'}>Admin</Link>
-            </li>}
-
-            {/* logout */}
-            {user && <li className=" cursor-pointer" onClick={logout}>
-                logout
-            </li>}
-
-            {/* Cart */}
-            <li>
-                <Link to={'/cart'}>
-                    Cart({cartItems.length})
+                <Link
+                    to={'/cart'}
+                    className="inline-flex items-center gap-2 rounded-full border border-champagne/60 px-4 py-1.5 text-champagne transition hover:bg-champagne hover:text-ink"
+                >
+                    Cart
+                    <span className="min-w-[1.25rem] rounded-full bg-champagne px-1.5 text-center text-xs font-semibold text-ink">
+                        {cartItems.length}
+                    </span>
                 </Link>
             </li>
         </ul>
-    )
+    );
+
     return (
-        <nav className="bg-pink-600 sticky top-0">
-            {/* main  */}
-            <div className="lg:flex lg:justify-between items-center py-3 lg:px-3 ">
-                {/* left  */}
-                <div className="left py-3 lg:py-0">
+        <nav className="sticky top-0 z-40 border-b border-smoke bg-ink/85 backdrop-blur">
+            <div className="mx-auto max-w-7xl items-center px-4 py-3 lg:flex lg:justify-between lg:gap-6">
+                {/* brand */}
+                <div className="py-3 text-center lg:py-0">
                     <Link to={'/'}>
-                        <h2 className=" font-bold text-white text-2xl text-center">NonStopShop</h2>
+                        <h2 className="font-serif text-3xl font-semibold tracking-wide text-champagne">
+                            NonStopShop
+                        </h2>
                     </Link>
                 </div>
 
-                {/* right  */}
-                <div className="right flex justify-center mb-4 lg:mb-0">
-                    {navList}
-                </div>
+                {/* links */}
+                <div className="mb-4 flex justify-center lg:mb-0">{navList}</div>
 
-                {/* Search Bar  */}
+                {/* search */}
                 <SearchBar />
             </div>
         </nav>
     );
-}
+};
 
 export default Navbar;
