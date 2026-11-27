@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart, deleteFromCart } from "../../redux/cartSlice";
 import toast from "react-hot-toast";
 
-
 const HomePageProductCard = () => {
     const navigate = useNavigate();
 
@@ -14,98 +13,74 @@ const HomePageProductCard = () => {
     const { loading, getAllProduct } = context;
 
     const cartItems = useSelector((state) => state.cart);
-
-    // console.log(cartItems);
-
     const dispatch = useDispatch();
 
-    // add to cart function
+    // add to cart
     const addCart = (item) => {
         dispatch(addToCart(item));
-        toast.success("Added to cart")
-    }
+        toast.success("Added to cart");
+    };
 
-
-    // delete from cart function
+    // remove from cart
     const deleteCart = (item) => {
         dispatch(deleteFromCart(item));
-        toast.success("Delete cart")
-    }
+        toast.success("Removed from cart");
+    };
 
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cartItems));
     }, [cartItems]);
 
     return (
-        <div className="mt-10">
-            {/* Heading  */}
-            <div className="">
-                <h1 className=" text-center mb-5 text-2xl font-semibold">Bestselling Products</h1>
-            </div>
+        <section className="mx-auto max-w-7xl px-4 py-16">
+            <h2 className="mb-10 text-center">Bestselling products</h2>
 
-            {/* main 1 */}
-            <section className="text-gray-600 body-font">
-                {/* main 2 */}
-                <div className="container px-3 py-5 mx-auto">
+            <div className="flex justify-center">{loading && <Loader />}</div>
 
-                    <div className="flex justify-center">
-                        {loading && <Loader />}
-                    </div>
-                    {/* main 3  */}
-                    <div className="flex flex-wrap -m-4">
-                        {getAllProduct.slice(0, 8).map((item, index) => {
-                            const { id, title, price, productImageUrl } = item;
-                            return (
-                                <div key={index} className="p-4 w-full md:w-1/4">
-                                    <div className="h-full border border-gray-300 rounded-xl overflow-hidden shadow-md cursor-pointer">
-                                        <img
-                                            onClick={() => navigate(`/productinfo/${id}`)}
-                                            className="lg:h-80  h-80 w-full"
-                                            src={productImageUrl}
-                                            alt="img"
-                                        />
-                                        <div className="p-6">
-                                            <h2 className="tracking-widest text-xs title-font font-medium text-gray-400 mb-1">
-                                                NonStopShop
-                                            </h2>
-                                            <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
-                                                {title.substring(0, 25)}
-                                            </h1>
-                                            <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
-                                                ₹{price}
-                                            </h1>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                {getAllProduct.slice(0, 8).map((item) => {
+                    const { id, title, price, productImageUrl } = item;
+                    const inCart = cartItems.some((p) => p.id === id);
 
-                                            <div className="flex justify-center ">
-                                                {cartItems.some((p) => p.id === item.id)
+                    return (
+                        <article
+                            key={id}
+                            className="panel group flex h-full flex-col overflow-hidden transition duration-200 hover:border-champagne/60 hover:shadow-glow"
+                        >
+                            <button
+                                onClick={() => navigate(`/productinfo/${id}`)}
+                                className="block overflow-hidden"
+                                aria-label={`View ${title}`}
+                            >
+                                <img
+                                    className="h-80 w-full object-cover transition duration-500 group-hover:scale-105"
+                                    src={productImageUrl}
+                                    alt={title}
+                                />
+                            </button>
 
-                                                    ?
-                                                    <button
-                                                        onClick={() => deleteCart(item)}
-                                                        className=" bg-red-700 hover:bg-pink-600 w-full text-white py-[4px] rounded-lg font-bold">
+                            <div className="flex flex-1 flex-col p-6">
+                                <h3 className="mb-2 text-xl text-ivory">{title.substring(0, 25)}</h3>
+                                <p className="price mb-5">₹{price}</p>
 
-                                                        Delete From Cart
-                                                    </button>
-
-                                                    :
-
-                                                    <button
-                                                        onClick={() => addCart(item)}
-                                                        className=" bg-pink-500 hover:bg-pink-600 w-full text-white py-[4px] rounded-lg font-bold">
-                                                        Add To cart
-                                                    </button>
-
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
+                                <div className="mt-auto">
+                                    {inCart ? (
+                                        <button onClick={() => deleteCart(item)} className="btn-ghost w-full">
+                                            Remove from cart
+                                        </button>
+                                    ) : (
+                                        <button onClick={() => addCart(item)} className="btn-gold w-full">
+                                            Add to cart
+                                        </button>
+                                    )}
                                 </div>
-                            )
-                        })}
-                    </div>
-                </div>
-            </section>
-        </div>
+                            </div>
+                        </article>
+                    );
+                })}
+            </div>
+        </section>
     );
-}
+};
 
 export default HomePageProductCard;
