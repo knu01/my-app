@@ -103,6 +103,38 @@
       placeholder:text-stone/60 transition duration-200
       focus:border-champagne focus:outline-none;
   }
+
+  .dashboard-table {
+    @apply w-full border-collapse text-left text-sm;
+  }
+
+  .dashboard-table th {
+    @apply border border-smoke bg-smoke px-4 py-3 font-semibold text-champagne;
+  }
+
+  .dashboard-table td {
+    @apply border border-smoke px-4 py-3 text-ivory;
+  }
+
+  .dashboard-table tbody tr:hover {
+    @apply bg-smoke/50;
+  }
+
+  .dashboard-table td.dashboard-table-edit {
+    @apply cursor-pointer text-emerald-400 hover:text-emerald-300;
+  }
+
+  .dashboard-table td.dashboard-table-delete {
+    @apply cursor-pointer text-red-400 hover:text-red-300;
+  }
+
+  .dashboard-table td.dashboard-table-status-pending {
+    @apply text-red-400;
+  }
+
+  .dashboard-table td.dashboard-table-status-confirmed {
+    @apply text-emerald-400;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
