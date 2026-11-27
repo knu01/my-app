@@ -81,7 +81,7 @@ const AddProductPage = () => {
 
     }
     return (
-        <div>
+        <div className="dashboard-theme">
             <div className='flex justify-center items-center h-screen'>
                 {loading && <Loader />}
                 {/* Login Form  */}

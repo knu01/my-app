@@ -103,6 +103,57 @@
       placeholder:text-stone/60 transition duration-200
       focus:border-champagne focus:outline-none;
   }
+
+  .dashboard-theme .bg-pink-50 {
+    background-color: #171510;
+  }
+
+  .dashboard-theme .hover\:bg-pink-100:hover {
+    background-color: #26231b;
+  }
+
+  .dashboard-theme .border-pink-100,
+  .dashboard-theme .border-pink-200,
+  .dashboard-theme .border-gray-200 {
+    border-color: #26231b;
+  }
+
+  .dashboard-theme .text-pink-300,
+  .dashboard-theme .text-pink-400,
+  .dashboard-theme .text-pink-500 {
+    color: #d4b483;
+  }
+
+  .dashboard-theme button.bg-pink-500,
+  .dashboard-theme button.bg-pink-600 {
+    background-color: #d4b483;
+    color: #0e0d0b;
+  }
+
+  .dashboard-theme .bg-slate-100 {
+    background-color: #26231b;
+  }
+
+  .dashboard-theme .text-slate-700 {
+    color: #d4b483;
+  }
+
+  .dashboard-theme .text-slate-500,
+  .dashboard-theme .text-gray-900,
+  .dashboard-theme .text-gray-800,
+  .dashboard-theme .text-gray-500,
+  .dashboard-theme .text-black {
+    color: #f3ede0;
+  }
+
+  .dashboard-theme td.text-red-500 {
+    color: #f87171;
+  }
+
+  .dashboard-theme td.text-green-500,
+  .dashboard-theme td.text-green-600 {
+    color: #34d399;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
