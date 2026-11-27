@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@material-tailwind/react": "^2.1.8",
     "@reduxjs/toolkit": "^2.1.0",
     "antd": "^5.14.0",
     "firebase": "^10.11.0",
@@ -35,5 +34,9 @@
     "postcss": "^8.4.33",
     "tailwindcss": "^3.4.1",
     "vite": "^5.0.8"
+  },
+  "allowScripts": {
+    "esbuild@0.19.12": true,
+    "protobufjs": false
   }
 }
